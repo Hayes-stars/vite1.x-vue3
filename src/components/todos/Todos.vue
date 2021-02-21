@@ -58,15 +58,18 @@
 				>Completed</span
 			>
 		</div> -->
+		<!-- router4 composition的使用 案例：回退到看板 -->
+		<button @click="backToDash">dashboard</button>
 	</div>
 </template>
 
 <script>
 import TodoItem from './TodoItem.vue'
 import Filter from './Filter.vue'
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, watch } from 'vue'
 import {useTodos} from './useTodos';
 import {useFilter} from './useFilter';
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 
 export default {
 	components: {
@@ -81,11 +84,31 @@ export default {
 		const {todos, addTodo, removeTodo} = useTodos(todoState)
 		const filterState = useFilter(todos)
 
+		// 获取路由的实例
+		const router = useRouter()
+
+		// route是响应式对象，可监控其变化 获取参数
+		const route = useRoute
+		watch(() => route.query, query => {
+			console.log('query params', query)
+		})
+
+		// 路由守卫 事件
+		onBeforeRouteLeave((to, from) => {
+			const answer = window.confirm('你确定要离开当前页面吗？')
+			if (!answer) {
+				return false
+			}
+		})
+
 		return {
 			...toRefs(todoState),
 			...toRefs(filterState),
 			addTodo,
-			removeTodo
+			removeTodo,
+			backToDash() {
+			 router.push('/')
+			}
 		}
 	},
 }

@@ -10,10 +10,32 @@ import './index.css'
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
-    {path: '/', component: Dashboard},
-    {path: '/todos', component: Todos}
+    {path: '/', name: 'dashboard', component: Dashboard},
+    {path: '/todos', name: 'todos', component: Todos}
   ]
 })
+
+
+// router4 新特性  动态路由增加
+router.addRoute({
+  path: '/about',
+  name: 'about',
+  component: () => import('./components/About.vue')
+})
+// 嵌套路由
+router.addRoute('about', {
+  path: '/about/info',
+  name: 'info',
+  component: {
+    render() {
+      return h('div', 'info page')
+    }
+  }
+})
+
+// composition
+
+
 
 
 // globalAPI

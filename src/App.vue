@@ -9,7 +9,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import Todos from './components/Todos.vue'
+import Todos from './components/todos/Todos.vue'
 // import {computed, reactive, onMounted, onUnmounted, ref, toRefs, watch} from 'vue'
 export default {
   name: 'App',

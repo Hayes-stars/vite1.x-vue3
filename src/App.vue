@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <img alt="Vue logo" height="1000" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Hello Vue 3.0 + Vite" /> -->
   <!-- <p>{{counter}}</p>
   <p>{{doubleCounter}}</p>

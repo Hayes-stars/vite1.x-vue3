@@ -1,20 +1,53 @@
 import {createApp, createRenderer, h} from 'vue'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import App from './App.vue'
 // import CanvasApp from './CanvasApp.vue'
 import EditTodo from './components/todos/EditTodo.vue'
 import Dashboard from './components/Dashboard.vue'
 import Todos from './components/todos/Todos.vue'
+import NotFound from './components/NotFound.vue'
 import './index.css'
 
+// 实例创建方式发生变化
+// history选项替代了mode选项
+// history: createWebHistory()
+// hash: createWebHashHistory()
+// abstract: createMemoryHistory()
+// base选项移至createWebHistory
+// 通配符*被移除
+// isReady()替代onReady()
+// router.push()  before:router.onReady(onSuccess, onError) now: router.isReady().then().catch()
+// scrollBehavior 滚动行为 x,y变成top,left
+
+
+
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory('/base-directory'),
   routes: [
     {path: '/', name: 'dashboard', component: Dashboard},
-    {path: '/todos', name: 'todos', component: Todos}
-  ]
+    {path: '/todos', name: 'todos', component: Todos},
+    {
+      path: "/:patchMatch(.*)*", name:"not-found", component: NotFound
+    }
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    // {x:10, y:10}
+    // now {left:10, top:10}
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return {top: 0}
+    }
+  }
 })
 
+// 使用命名导航至404页面
+// router.resolve({
+//   name: 'not-found',
+//   params: {
+//     pathMatch: ['not', 'found']
+//   }
+// }).href
 
 // router4 新特性  动态路由增加
 router.addRoute({

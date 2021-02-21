@@ -29,6 +29,15 @@
 
 	<!-- 异步组件 -->
 	<AsyncComp></AsyncComp>
+
+	<!-- 自定义指令 -->
+	<p v-highlight="'green'">highlight this next!!!</p>
+
+	<!-- transition test -->
+	<TransitionTest></TransitionTest>
+
+	<!-- 编程方式发送和监听事件 -->
+	<button @click="sendMsg">send message</button>
 </template>
 
 <script>
@@ -37,6 +46,13 @@ import ModalButton from './ModalButton.vue'
 import Emits from './Emits.vue'
 import VmodelTest from './VmodelTest.vue'
 import Functional from './Functional.vue'
+import TransitionTest from './TransitionTest.vue'
+
+// 事件派发和监听
+import mitt from 'mitt'
+export const emitter = mitt()
+
+
 export default {
 	name: 'HelloWorld',
 	props: {
@@ -49,6 +65,7 @@ export default {
 		Functional,
 		// 异步组件
 		AsyncComp: defineAsyncComponent(() => import('./NextPage.vue')),
+		TransitionTest,
 		RenderTest: {
 			props: {
 				counter: {
@@ -87,6 +104,10 @@ export default {
 		onClick() {
 			console.log('click me')
 		},
+		sendMsg() {
+			console.log('sendMsg')
+			emitter.emit('someEvent', 'balabala')
+		}
 	},
 }
 </script>

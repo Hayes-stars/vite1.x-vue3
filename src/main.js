@@ -8,6 +8,10 @@ createApp(App).component('comp', {
   render() {
     return h('div', 'I am comp')
   }
+}).directive('highlight', {
+  beforeMount(el, binding, vnode) {
+    el.style.background = binding.value
+  }
 }).mount('#app')
 
 // 自定义渲染器
@@ -125,4 +129,4 @@ function createCanvasApp(App) {
   return app
 }
 
-createCanvasApp(CanvasApp).mount('#demo')
+// createCanvasApp(CanvasApp).mount('#demo')

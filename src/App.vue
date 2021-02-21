@@ -1,18 +1,21 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3.0 + Vite" />
-  <p>{{counter}}</p>
+  <!-- <HelloWorld msg="Hello Vue 3.0 + Vite" /> -->
+  <!-- <p>{{counter}}</p>
   <p>{{doubleCounter}}</p>
-  <p ref="desc"></p>
+  <p ref="desc"></p> -->
+  <Todos></Todos>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import {computed, reactive, onMounted, onUnmounted, ref, toRefs, watch} from 'vue'
+import Todos from './components/Todos.vue'
+// import {computed, reactive, onMounted, onUnmounted, ref, toRefs, watch} from 'vue'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Todos
   },
   props: {
     msg: String
@@ -34,33 +37,33 @@ export default {
     //   clearInterval(timer)
     // })
 
-    const {counter, doubleCounter} = useCounter()
-    const msg2 = ref('some message')
-    // 使用元素的引用
-    const desc = ref(null)
-    // 监听器
-    watch(counter, (val, oldVal) => {
-      const domP = desc.value
-      domP.textContent = `counter change from ${oldVal} to ${val}`
-    })
-    return {counter, doubleCounter, msg2, desc}
+    // const {counter, doubleCounter} = useCounter()
+    // const msg2 = ref('some message')
+    // // 使用元素的引用
+    // const desc = ref(null)
+    // // 监听器
+    // watch(counter, (val, oldVal) => {
+    //   const domP = desc.value
+    //   domP.textContent = `counter change from ${oldVal} to ${val}`
+    // })
+    // return {counter, doubleCounter, msg2, desc}
   }
 }
-function useCounter() {
-  const data = reactive({
-    counter: 1,
-    doubleCounter: computed(() => data.counter*2)
-  })
+// function useCounter() {
+//   const data = reactive({
+//     counter: 1,
+//     doubleCounter: computed(() => data.counter*2)
+//   })
 
-  let timer
-  onMounted(() => {
-    timer = setInterval(() => {
-      data.counter++
-    }, 1000)
-  })
-  onUnmounted(() => {
-    clearInterval(timer)
-  })
-  return toRefs(data)
-}
+//   let timer
+//   onMounted(() => {
+//     timer = setInterval(() => {
+//       data.counter++
+//     }, 1000)
+//   })
+//   onUnmounted(() => {
+//     clearInterval(timer)
+//   })
+//   return toRefs(data)
+// }
 </script>

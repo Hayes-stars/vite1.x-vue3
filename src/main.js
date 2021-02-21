@@ -8,18 +8,6 @@ import Todos from './components/todos/Todos.vue'
 import NotFound from './components/NotFound.vue'
 import './index.css'
 
-// 实例创建方式发生变化
-// history选项替代了mode选项
-// history: createWebHistory()
-// hash: createWebHashHistory()
-// abstract: createMemoryHistory()
-// base选项移至createWebHistory
-// 通配符*被移除
-// isReady()替代onReady()
-// router.push()  before:router.onReady(onSuccess, onError) now: router.isReady().then().catch()
-// scrollBehavior 滚动行为 x,y变成top,left
-
-
 
 const router = createRouter({
   history: createWebHistory('/base-directory'),
@@ -30,15 +18,15 @@ const router = createRouter({
       path: "/:patchMatch(.*)*", name:"not-found", component: NotFound
     }
   ],
-  scrollBehavior(to, from, savedPosition) {
-    // {x:10, y:10}
-    // now {left:10, top:10}
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return {top: 0}
-    }
-  }
+  // scrollBehavior(to, from, savedPosition) {
+  //   // {x:10, y:10}
+  //   // now {left:10, top:10}
+  //   if (savedPosition) {
+  //     return savedPosition
+  //   } else {
+  //     return {top: 0}
+  //   }
+  // }
 })
 
 // 使用命名导航至404页面

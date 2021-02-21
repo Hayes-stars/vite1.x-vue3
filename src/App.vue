@@ -4,7 +4,8 @@
   <!-- <p>{{counter}}</p>
   <p>{{doubleCounter}}</p>
   <p ref="desc"></p> -->
-  <Todos></Todos>
+  <!-- <Todos></Todos> -->
+  <router-view></router-view>
 </template>
 
 <script>

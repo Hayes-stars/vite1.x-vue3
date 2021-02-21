@@ -1,11 +1,24 @@
 import {createApp, createRenderer, h} from 'vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
 // import CanvasApp from './CanvasApp.vue'
 import EditTodo from './components/todos/EditTodo.vue'
+import Dashboard from './components/Dashboard.vue'
+import Todos from './components/todos/Todos.vue'
 import './index.css'
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: [
+    {path: '/', component: Dashboard},
+    {path: '/todos', component: Todos}
+  ]
+})
+
 
 // globalAPI
 createApp(App)
+  .use(router)
   .component('comp', {
     render() {
       return h('div', 'I am comp')

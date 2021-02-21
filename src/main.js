@@ -11,7 +11,7 @@ createApp(App)
       return h('div', 'I am comp')
     },
   })
-  .component('EditTodo', EditTodo)
+  .component('EditTodo', EditTodo) // 全局组件注册
   .directive('highlight', {
     beforeMount(el, binding, vnode) {
       el.style.background = binding.value

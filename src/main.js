@@ -1,5 +1,6 @@
 import {createApp, createRenderer, h} from 'vue'
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import {createStore} from 'vuex'
+import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
 import App from './App.vue'
 // import CanvasApp from './CanvasApp.vue'
 import EditTodo from './components/todos/EditTodo.vue'
@@ -8,6 +9,18 @@ import Todos from './components/todos/Todos.vue'
 import NotFound from './components/NotFound.vue'
 import './index.css'
 
+const store = createStore({
+  state() {
+    return {
+      count: 1
+    }
+  },
+  mutations: {
+    add(state) {
+      state.count++
+    }
+  }
+})
 
 const router = createRouter({
   history: createWebHistory('/base-directory'),
@@ -15,8 +28,10 @@ const router = createRouter({
     {path: '/', name: 'dashboard', component: Dashboard},
     {path: '/todos', name: 'todos', component: Todos},
     {
-      path: "/:patchMatch(.*)*", name:"not-found", component: NotFound
-    }
+      path: '/:patchMatch(.*)*',
+      name: 'not-found',
+      component: NotFound,
+    },
   ],
   // scrollBehavior(to, from, savedPosition) {
   //   // {x:10, y:10}
@@ -41,7 +56,7 @@ const router = createRouter({
 router.addRoute({
   path: '/about',
   name: 'about',
-  component: () => import('./components/About.vue')
+  component: () => import('./components/About.vue'),
 })
 // 嵌套路由
 router.addRoute('about', {
@@ -50,18 +65,16 @@ router.addRoute('about', {
   component: {
     render() {
       return h('div', 'info page')
-    }
-  }
+    },
+  },
 })
 
 // composition
 
-
-
-
 // globalAPI
 createApp(App)
   .use(router)
+  .use(store)
   .component('comp', {
     render() {
       return h('div', 'I am comp')

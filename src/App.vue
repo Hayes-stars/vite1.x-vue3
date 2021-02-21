@@ -1,5 +1,9 @@
 <template>
-	<img alt="Vue logo" height="1000" src="./assets/logo.png" />
+	<img alt="Vue logo" src="./assets/logo.png" />
+	<!-- 传统写法 -->
+	<p @click="$store.commit('add')">{{$store.state.count}}</p>
+	<!-- composition写法 -->
+	<p @click="add">{{count}}</p>
 	<!-- <HelloWorld msg="Hello Vue 3.0 + Vite" /> -->
 	<!-- <p>{{counter}}</p>
   <p>{{doubleCounter}}</p>
@@ -17,6 +21,8 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import Todos from './components/todos/Todos.vue'
+import {useStore} from 'vuex'
+import { toRefs } from 'vue'
 // import {computed, reactive, onMounted, onUnmounted, ref, toRefs, watch} from 'vue'
 export default {
 	name: 'App',
@@ -27,7 +33,16 @@ export default {
 	props: {
 		msg: String,
 	},
-	setup() {
+	setup() {		
+		const store = useStore()
+		console.log(store);
+		return {
+			...toRefs(store.state),
+			// state: store.state,
+			add() {
+				store.commit('add')
+			}
+		}
 		// counter 相关
 		// const data = reactive({
 		//   counter: 1,
